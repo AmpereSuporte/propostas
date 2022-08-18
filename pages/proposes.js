@@ -170,8 +170,8 @@ export default function Home() {
         <div className="mt-5">
           {proposes?.map((propose) => (
             <Link key={propose._id} href={`/pdf/${propose._id}`}>
-              <div className="text-xl mt-2 text-white font-semibold">
-                - {propose.clientName}
+              <div className="text-xl mt-2 w-64 text-center py-2 bg-white text-[#15599b] rounded-lg font-semibold">
+                {propose.clientName}
               </div>
             </Link>
           ))}
