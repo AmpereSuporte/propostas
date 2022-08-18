@@ -48,7 +48,7 @@ export default function Home() {
   }, []);
   console.log(proposes);
   return (
-    <div className="flex flex-col w-screen h-screen bg-[#15599b] p-3">
+    <div className="flex flex-col w-screen xl:h-screen m-h-max bg-[#15599b] p-3">
       <h1 className="self-center text-white text-3xl font-raleway font-bold uppercase">
         Controle de propostas O&M
       </h1>
@@ -56,8 +56,8 @@ export default function Home() {
         <h1 className="text-[#f6c228] text-1xl font-raleway font-bold">
           Geração de propostas
         </h1>
-        <div className="flex flex-wrap mt-2 gap-2 justify-between">
-          <div className="flex flex-col">
+        <div className="lg:flex block flex-wrap mt-2 gap-2 justify-between">
+          <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
               Nome do cliente
             </span>
@@ -70,7 +70,7 @@ export default function Home() {
               }
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
               Cidade
             </span>
@@ -86,7 +86,7 @@ export default function Home() {
               ))}
             </select>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
               Atendente
             </span>
@@ -99,7 +99,7 @@ export default function Home() {
               }
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
               Qtd. de módulos
             </span>
@@ -112,7 +112,7 @@ export default function Home() {
               }
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
               Pot. dos módulos
             </span>
@@ -125,7 +125,7 @@ export default function Home() {
               }
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
               Eficiência atual
             </span>
@@ -138,7 +138,7 @@ export default function Home() {
               }
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
               Distância
             </span>
@@ -151,23 +151,23 @@ export default function Home() {
           </div>
         </div>
         <button
-          className="bg-[#f6c228] mt-2 place-self-end py-2 px-4 rounded w-64"
+          className="bg-[#f6c228] mt-2 place-self-center lg:place-self-end py-2 px-4 rounded w-64"
           onClick={handleProposeGeneration}
         >
           Gerar proposta
         </button>
       </div>
-      <div className="flex flex-col px-4">
+      <div className="flex flex-col items-center px-4">
         <h1 className="text-[#f6c228] text-1xl font-raleway font-bold">
           Propostas criadas
         </h1>
         <button
-          className="bg-[#f6c228] mt-2 place-self-start py-2 px-4 rounded w-64"
+          className="bg-[#f6c228] mt-2 place-self-center xl:place-self-start py-2 px-4 rounded w-64"
           onClick={fetchProposes}
         >
           Atualizar propostas criadas
         </button>
-        <div className="mt-5">
+        <div className="flex lg:flex-row flex-col gap-2 mt-5">
           {proposes?.map((propose) => (
             <Link key={propose._id} href={`/pdf/${propose._id}`}>
               <div className="text-xl mt-2 w-64 text-center py-2 bg-white text-[#15599b] rounded-lg font-semibold">
