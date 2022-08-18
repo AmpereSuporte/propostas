@@ -56,7 +56,7 @@ export default function Home() {
         <h1 className="text-[#f6c228] text-1xl font-raleway font-bold">
           Geração de propostas
         </h1>
-        <div className="flex mt-2 gap-2 justify-between">
+        <div className="flex flex-wrap mt-2 gap-2 justify-between">
           <div className="flex flex-col">
             <span className="text-white text-center mb-2 font-semibold">
               Nome do cliente

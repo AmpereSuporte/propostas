@@ -59,7 +59,7 @@ function pdfPage({ info }) {
             <p className="flex items-center h-14 text-center text-[#15599b] font-bold">
               Potência kWp
             </p>
-            <p>{info.modulesQty * info.modulesPot}kWp</p>
+            <p>{(info.modulesQty * info.modulesPot)/1000}kWp</p>
           </div>
           <div className="flex flex-col items-center">
             <p className="flex items-center h-14 text-center text-[#15599b] font-bold">
@@ -180,16 +180,16 @@ function pdfPage({ info }) {
                       <td className="px-2 text-sm font-medium text-gray-900 border-r">
                         REAPERTO CONEXÕES ELÉTRICAS
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap border-r">
                         X
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap border-r">
                         &#x2714;
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap border-r">
                         &#x2714;
                       </td>
-                      <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 font-bold px-6 py-2 whitespace-nowrap">
                         2x &#x2714;
                       </td>
                     </tr>
@@ -255,7 +255,7 @@ function pdfPage({ info }) {
                         X
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                        &#x2714;
+                        X
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                         &#x2714;
@@ -273,10 +273,10 @@ function pdfPage({ info }) {
                         X
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                        &#x2714;
+                        X
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                        &#x2714;
+                      &#x2714;
                       </td>
                       <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
                         2x &#x2714;
@@ -286,16 +286,16 @@ function pdfPage({ info }) {
                       <td className="px-2 text-sm font-medium text-gray-900 border-r">
                         DISTRIBUIÇÃO DE CRÉDITOS
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap border-r">
                         X
                       </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                      <td className="text-sm text-gray-900 font-light px-6 py-2 whitespace-nowrap border-r">
                         X
                       </td>
-                      <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap border-r">
+                      <td className="text-sm text-gray-900 font-bold px-6 py-2 whitespace-nowrap border-r">
                         2X&#x2714;
                       </td>
-                      <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm text-gray-900 font-bold px-6 py-2 whitespace-nowrap">
                         4x  &#x2714;
                       </td>
                     </tr>
@@ -346,7 +346,7 @@ function pdfPage({ info }) {
         <h1 className="w-full bg-[#15599b] text-white font-bold text-center">
           ASSINATURA
         </h1>
-        <div className="mt-12 flex justify-between">
+        <div className="mt-10 flex justify-between">
           <div className="w-[35%]">
             <hr className="border-t-2 border-black" />
             <p className="text-center">Cliente</p>
@@ -356,16 +356,17 @@ function pdfPage({ info }) {
             <p className="text-center">Ampère Energias</p>
           </div>
         </div>
-        <h1 className="text-xs text-[#15599b] mt-1 text-center">
-          A ENERGIA QUE MOVE O MUNDO{"  "}
-          <strong className="text-[#f6c228] text-sm font-bold">
-            VEM DE VOCÊ!
-          </strong>
-        </h1>
+
       </div>
     </div>
   );
 }
+/*        <h1 className="text-xs text-[#15599b] mt-1 text-center">
+          A ENERGIA QUE MOVE O MUNDO{"  "}
+          <strong className="text-[#f6c228] text-sm font-bold">
+            VEM DE VOCÊ!
+          </strong>
+        </h1>*/
 /*export async function getStaticPaths() {
   const router = useRouter();
   const { id } = router.query;
