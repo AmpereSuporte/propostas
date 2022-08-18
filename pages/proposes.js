@@ -167,7 +167,7 @@ export default function Home() {
         >
           Atualizar propostas criadas
         </button>
-        <div className="flex lg:flex-row flex-col gap-2 mt-5">
+        <div className="flex flex-wrap justify-center lg:flex-row flex-col gap-2 mt-5">
           {proposes?.map((propose) => (
             <Link key={propose._id} href={`/pdf/${propose._id}`}>
               <div className="text-xl mt-2 w-64 text-center py-2 bg-white text-[#15599b] rounded-lg font-semibold">
