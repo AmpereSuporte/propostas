@@ -49,11 +49,11 @@ export default function Home() {
   console.log(proposes);
   return (
     <div className="flex flex-col w-screen xl:h-screen m-h-max bg-[#15599b] p-3">
-      <h1 className="self-center text-white text-3xl font-raleway font-bold uppercase">
+      <h1 className="self-center text-center text-white text-3xl font-raleway font-bold uppercase">
         Controle de propostas O&M
       </h1>
       <div className="flex flex-col px-4">
-        <h1 className="text-[#f6c228] text-1xl font-raleway font-bold">
+        <h1 className="text-[#f6c228] self-center text-1xl font-raleway font-bold">
           Geração de propostas
         </h1>
         <div className="lg:flex block flex-wrap mt-2 gap-2 justify-between">
@@ -151,13 +151,13 @@ export default function Home() {
           </div>
         </div>
         <button
-          className="bg-[#f6c228] mt-2 place-self-center lg:place-self-end py-2 px-4 rounded w-64"
+          className="bg-[#f6c228] mt-6 lg:mt-2 place-self-center lg:place-self-end py-2 px-4 rounded w-64"
           onClick={handleProposeGeneration}
         >
           Gerar proposta
         </button>
       </div>
-      <div className="flex flex-col items-center px-4">
+      <div className="flex flex-col mt-6 lg:mt-2 items-center px-4">
         <h1 className="text-[#f6c228] text-1xl font-raleway font-bold">
           Propostas criadas
         </h1>

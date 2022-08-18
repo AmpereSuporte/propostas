@@ -12,7 +12,7 @@ function Index() {
           height="100px"
           className="rounded-full"
         />
-        <h1 className="text-3xl text-[#15599b] font-raleway pt-3 uppercase font-bold">
+        <h1 className="text-3xl text-[#15599b] text-center font-raleway pt-3 uppercase font-bold">
           Departamento de Suporte técnico
         </h1>
       </div>
