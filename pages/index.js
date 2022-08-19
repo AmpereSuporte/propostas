@@ -20,7 +20,7 @@ function Index() {
         <h1 className="text-3xl text-[#15599b] mb-6 font-raleway font-bold">
           Serviços
         </h1>
-        <Link href="/proposes">
+        <Link href="/auth">
           <div className="rounded bg-[#15599b] px-2 py-4">
             <p className="text-white font-raleway font-semibold cursor-pointer">
               Controle de propostas O&M
