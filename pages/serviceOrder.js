@@ -175,7 +175,7 @@ export default function ServiceOrder(props) {
         </div>
       </Link>
       <h1 className="self-center text-center text-white text-3xl font-raleway font-bold uppercase">
-        Controle OS's
+        Controle OSs
       </h1>
       <div className="flex flex-col px-4">
         <h1 className="text-[#f6c228] self-center text-1xl font-raleway font-bold">
