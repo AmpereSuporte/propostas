@@ -555,4 +555,3 @@ export default function serviceOrder(props) {
   );
 }
 
-export default serviceOrder;
