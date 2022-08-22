@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import EmptyLogo from "../utils/empty-logo.png";
+import EmptyLogo from "../../utils/empty-logo.png";
 import axios from "axios";
-function Auth(props) {
+function Auth({ setCredentials }) {
   const router = useRouter();
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
   function handleLogin() {
     axios.post("/api/auth", { user, password }).then((res) => {
       if (res.data.error) {
         setMessage(res.data.error);
       } else {
-        props.setCredentials(res.data.credentials);
-        router.push("/proposes");
+        if (res.data.credentials._id) {
+          setCredentials(res.data.credentials);
+          router.push("/");
+        }
       }
     });
   }
