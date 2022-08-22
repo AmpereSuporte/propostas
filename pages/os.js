@@ -36,7 +36,7 @@ function os(props) {
   function handleAPICEP() {
     if (termInfos.cep.length == 8) {
       axios
-        .get(`http://localhost:3000/api/cep/${termInfos.cep}`)
+        .get(`http://localhost:3000/api/cpf/${termInfos.cep}`)
         .then((res) => {
           setTermInfos({
             ...termInfos,
@@ -163,7 +163,7 @@ function os(props) {
     }
   }, []);
   return (
-    <div className="flex flex-col w-screen xl:min-h-[100vh] m-h-max bg-[#15599b] px-4">
+    <div className="flex flex-col xl:min-w-[100vh]  min-w-max xl:min-h-[100vh] m-h-max bg-[#15599b]">
       <Link href="/">
         <div className="mb-4 flex justify-center self-center w-[110px] mt-3 bg-white rounded-lg">
           <Image
