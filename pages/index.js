@@ -51,7 +51,7 @@ function Index(props) {
               <div className="flex items-center justify-center bg-amber-400 hover:bg-amber-500 h-full px-2 py-4">
                 <Image height="100px" width="100px" src={OEM} />
                 <p className="text-white font-raleway font-semibold cursor-pointer">
-                  Controle OS's
+                  Controle OSs
                 </p>
               </div>
             </Link>
