@@ -6,7 +6,7 @@ import { prices, cities } from "../utils/constants";
 import Image from "next/image";
 import Logo from "../utils/logo.png";
 import { useRouter } from "next/router";
-function serviceOrder(props) {
+export default function serviceOrder(props) {
   const router = useRouter();
   const [termInfos, setTermInfos] = useState({
     clientName: "",
