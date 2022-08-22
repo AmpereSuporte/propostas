@@ -5,7 +5,7 @@ import { prices, cities } from "../utils/constants";
 import Image from "next/image";
 import Logo from "../utils/logo.png";
 import { useRouter } from "next/router";
-export default function Home(props) {
+export default function ProposesManagement(props) {
   const router = useRouter();
   const [infos, setInfos] = useState({
     clientName: "",
@@ -54,7 +54,7 @@ export default function Home(props) {
   }
   useEffect(() => {
     if (!props.credentials._id) {
-      router.push("/auth");
+      router.push("/auth/auth");
     } else {
       if (props.credentials.admin) {
         fetchProposes();
@@ -63,7 +63,6 @@ export default function Home(props) {
       }
     }
   }, []);
-  console.log(proposes);
   return (
     <div className="flex flex-col w-screen xl:min-h-[100vh] m-h-max bg-[#15599b]">
       <div className="mb-4 flex justify-center self-center w-[110px] mt-3 bg-white rounded-lg">
@@ -304,7 +303,7 @@ export default function Home(props) {
                             .replace(".", ",")}
                         </td>
                         <td className="px-2 text-sm font-medium text-gray-900">
-                          <Link href={`/pdf/${propose._id}`}>
+                          <Link href={`/pdf/propose/${propose._id}`}>
                             <button className="bg-[#f6c228] font-semibold py-1 px-2 rounded">
                               Proposta
                             </button>
