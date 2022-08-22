@@ -480,7 +480,7 @@ export default function ServiceOrder(props) {
       <div className="flex flex-col mt-6 lg:mt-12 items-center px-4">
         <div className="grid gap-x-2 items-center grid-rows-2 lg:grid-cols-2 lg:grid-rows-1">
           <h1 className="text-[#f6c228] text-center text-2xl uppercase font-raleway font-bold">
-            OS's criadas
+            OSs criadas
           </h1>
           <button
             onClick={getOss}
