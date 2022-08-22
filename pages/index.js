@@ -31,7 +31,7 @@ function Index(props) {
       <div
         className={
           props.credentials.admin
-            ? `grid h-full lg:grid-cols-2 lg:grid-rows-1 grid-rows-2 gap-x-2`
+            ? "grid h-full lg:grid-cols-2 lg:grid-rows-1 grid-rows-2 gap-x-2"
             : "w-full h-full grid grid-cols-1 grid-rows-1 p-2"
         }
       >
