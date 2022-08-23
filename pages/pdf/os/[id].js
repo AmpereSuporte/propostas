@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Assinatura from "../../../utils/assinatura.jpg";
 import Logo from "../../../utils/whitelogo.png";
 import connectToDatabase2 from "../../../utils/mongo2";
 import { ObjectId } from "mongodb";
@@ -193,7 +194,10 @@ function osPDF({ info }) {
         <div className="mt-6 grid gap-x-4 grid-cols-2">
           <div className="flex flex-col">
             <p className="text-start">Autorizado por:</p>
-            <hr className="mt-12 border-t-2 border-black" />
+            <div className="w-[150px] flex justify-center  items-centertext-center">
+              <Image src={Assinatura} />
+            </div>
+            <hr className="border-t-2 border-black" />
             <p>ASSINATURA DIRETOR DE ENGENHARIA</p>
           </div>
           <div className="flex flex-col">
