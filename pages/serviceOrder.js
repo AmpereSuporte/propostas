@@ -35,16 +35,14 @@ export default function ServiceOrder(props) {
   const [cepMessage, setCepMessage] = useState("");
   function handleAPICEP() {
     if (termInfos.cep.length == 8) {
-      axios
-        .get(`http://localhost:3000/api/cep/${termInfos.cep}`)
-        .then((res) => {
-          setTermInfos({
-            ...termInfos,
-            district: res.data.bairro,
-            address: res.data.logradouro,
-            city: res.data.localidade,
-          });
+      axios.get(`/api/cep/${termInfos.cep}`).then((res) => {
+        setTermInfos({
+          ...termInfos,
+          district: res.data.bairro,
+          address: res.data.logradouro,
+          city: res.data.localidade,
         });
+      });
       setCepMessage(null);
     } else {
       setCepMessage("CEP inválido");
