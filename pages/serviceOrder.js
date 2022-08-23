@@ -36,7 +36,7 @@ export default function ServiceOrder(props) {
   function handleAPICEP() {
     if (termInfos.cep.length == 8) {
       axios
-        .get(`http://localhost:3000/api/cpf/${termInfos.cep}`)
+        .get(`http://localhost:3000/api/cep/${termInfos.cep}`)
         .then((res) => {
           setTermInfos({
             ...termInfos,
