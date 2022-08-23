@@ -15,6 +15,31 @@ function pdfPage({ info }) {
       .get(`http://localhost:3000/api/${id}`)
       .then((res) => setInfos(res.data));
   }, []);*/
+  const mtPrice = (
+    info.price * info.modulesQty +
+    1.5 * 2 * info.distance
+  ).toFixed(2);
+
+  function quotaCreditNumber() {
+    console.log(mtPrice / 200);
+    if (Math.floor(mtPrice / 200) <= 1) {
+      return "";
+    } else if (mtPrice / 200 > 12) {
+      return "DIVIDIDO EM ATÉ 12x NO CARTÃO";
+    } else {
+      return `DIVIDIDO EM ATÉ ${Math.floor(mtPrice / 200)}x NO CARTÃO`;
+    }
+  }
+  function quotaBoletoNumber() {
+    console.log(mtPrice / 200);
+    if (Math.floor(mtPrice / 500) <= 1) {
+      return "";
+    } else if (mtPrice / 500 > 12) {
+      return " OU 12x NO BOLETO";
+    } else {
+      return ` OU ${Math.floor(mtPrice / 500)}x NO BOLETO`;
+    }
+  }
   return (
     <div className="w-[21cm] h-[29.7cm] bg-zinc-200 p-4">
       <div className="grid grid-cols-5 w-full">
@@ -300,8 +325,8 @@ function pdfPage({ info }) {
                     </tr>
                     <tr className="border-b bg-white">
                       <td className="px-2 py-1 text-sm font-medium text-gray-900 border-r">
-                        VALOR DO PLANO ANUAL DIVIDO EM ATÉ 12x SEM JUROS NO
-                        CARTÃO DE CRÉDITO OU EM 6X NO BOLETO BANCÁRIO
+                        VALOR DO PLANO ANUAL {quotaCreditNumber()}
+                        {quotaBoletoNumber()}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                         -
