@@ -150,7 +150,6 @@ export default function ServiceOrder(props) {
   }
   function getOss() {
     axios.get("/api/os").then((res) => {
-      console.log(res.data);
       setOss(res.data);
     });
   }
@@ -163,7 +162,7 @@ export default function ServiceOrder(props) {
     }
   }, []);
   return (
-    <div className="flex flex-col xl:min-w-[100vh]  min-w-max xl:min-h-[100vh] m-h-max bg-[#15599b]">
+    <div className="flex flex-col w-screen xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
       <Link href="/">
         <div className="mb-4 flex justify-center self-center w-[110px] mt-3 bg-white rounded-lg">
           <Image
@@ -528,16 +527,16 @@ export default function ServiceOrder(props) {
                         <td className="px-2 text-sm font-medium text-gray-900">
                           {os.generalInfos.city}
                         </td>
-                        <td className="px-2 text-sm font-medium text-gray-900">
+                        <td className="flex justify-center gap-2 items-center  px-2 text-sm font-medium text-gray-900">
                           <Link href={`/pdf/term/${os._id}`}>
-                            <button className="bg-[#f6c228] w-32 px-2 py-1 rounded">
-                              Ver termo
+                            <button className="bg-[#f6c228] text-center w-18 lg:w-32 px-2 py-1 rounded">
+                              Termo
                             </button>
                           </Link>
                           {os.osInfos && (
                             <Link href={`/pdf/os/${os._id}`}>
-                              <button className="bg-[#f6c228] ml-2 w-32 px-2 py-1 rounded">
-                                Ver OS
+                              <button className="bg-[#f6c228] ml-0 w-18 lg:w-32 px-2 py-1 rounded">
+                                OS
                               </button>
                             </Link>
                           )}
@@ -554,4 +553,3 @@ export default function ServiceOrder(props) {
     </div>
   );
 }
-

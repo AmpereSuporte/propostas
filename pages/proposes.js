@@ -16,6 +16,7 @@ export default function ProposesManagement(props) {
     currentEfficience: "",
     distance: 0,
   });
+  const [message, setMessage] = useState("");
   const [proposes, setProposes] = useState([]);
   function findPrice() {
     for (let i = 0; i < prices.length; i++) {
@@ -42,12 +43,25 @@ export default function ProposesManagement(props) {
           1000
         ).toFixed(2),
       })
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        setMessage(res.data);
+        setInfos({
+          clientName: "",
+          city: cities[0].name,
+          attendant: props.credentials.user,
+          modulesQty: "",
+          modulesPot: "",
+          currentEfficience: "",
+          distance: 0,
+        });
+      });
   }
   function fetchProposes() {
+    setMessage("");
     axios.get("/api/propose").then((res) => setProposes(res.data));
   }
   function fetchUserProposes() {
+    setMessage("");
     axios
       .post("/api/userProposes", { user: props.credentials.user })
       .then((res) => setProposes(res.data));
@@ -64,7 +78,7 @@ export default function ProposesManagement(props) {
     }
   }, []);
   return (
-    <div className="flex flex-col w-screen xl:min-h-[100vh] m-h-max bg-[#15599b]">
+    <div className="flex flex-col w-screen xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
       <div className="mb-4 flex justify-center self-center w-[110px] mt-3 bg-white rounded-lg">
         <Link href="/">
           <div>
@@ -179,6 +193,11 @@ export default function ProposesManagement(props) {
             />
           </div>
         </div>
+        {message && (
+          <h1 className="text-center mt-2 font-bold text-green-600">
+            {message}
+          </h1>
+        )}
         <button
           className="bg-[#f6c228] mt-6 lg:mt-6 place-self-center py-2 px-4 rounded w-64"
           onClick={handleProposeGeneration}

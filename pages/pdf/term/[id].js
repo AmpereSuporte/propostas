@@ -7,8 +7,8 @@ import { ObjectId } from "mongodb";
 function termPDF({ info }) {
   console.log(info);
   return (
-    <div className="w-[21cm] h-[29.7cm] bg-zinc-100 p-4">
-      <Link href="/os">
+    <div className="w-[21cm] h-[29.7cm] p-4">
+      <Link href="/serviceOrder">
         <div className="flex justify-center">
           <Image height="70px" width="70px" src={Logo} />
         </div>

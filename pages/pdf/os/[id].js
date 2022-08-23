@@ -1,16 +1,21 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Logo from "../../../utils/whitelogo.png";
 import connectToDatabase2 from "../../../utils/mongo2";
 import { ObjectId } from "mongodb";
 function osPDF({ info }) {
   console.log(info);
   return (
-    <div className="w-[21cm] h-[29.7cm] bg-zinc-200 p-4 px-12">
+    <div className="w-[21cm] h-[29.7cm]  p-4 px-12">
       <h1 className="text-center font-bold text-xl mb-6">ORDEM DE SERVIÇO</h1>
       <div className="grid grid-cols-2">
         <div className="flex justify-between">
-          <Image height="80px" width="100px" src={Logo} />
+          <Link href="/serviceOrder">
+            <div className="flex justify-center items-center">
+              <Image height="100px" width="100px" src={Logo} />
+            </div>
+          </Link>
           <div className="pl-2">
             <p className="text-center font-bold">
               AMPÈRE ENERGENHARIA E CONSULTORIA ELÉTRICA - ME
