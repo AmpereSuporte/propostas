@@ -6,7 +6,6 @@ import Logo from "../../../utils/whitelogo.png";
 import connectToDatabase2 from "../../../utils/mongo2";
 import { ObjectId } from "mongodb";
 function osPDF({ info }) {
-  console.log(info);
   return (
     <div className="w-[21cm] h-[29.7cm]  p-4 px-12">
       <h1 className="text-center font-bold text-xl mb-6">ORDEM DE SERVIÇO</h1>
@@ -59,7 +58,9 @@ function osPDF({ info }) {
             <div className="grid grid-cols-4">
               <p className="font-semibold">Telefone:</p>
               <p className="col-span-3 text-center border border-black border-t-0">
-                -
+                {info.generalInfos.cellPhoneNumber
+                  ? info.generalInfos.cellPhoneNumber
+                  : "-"}
               </p>
             </div>
           </div>
@@ -127,7 +128,7 @@ function osPDF({ info }) {
                 PONTO DE ÁGUA:
               </p>
               <div className="flex justify-center items-center col-span-3 border border-black border-t-0">
-                {info.osInfos.waterPoint == "true" ? "Sim" : "Não"}
+                {info.osInfos.waterPoint}
               </div>
             </div>
             <div className="grid grid-cols-5">
@@ -213,7 +214,6 @@ function osPDF({ info }) {
 export async function getServerSideProps({ query }) {
   // Fetch data from external API
   const id = query.id;
-  console.log(id);
 
   const db = await connectToDatabase2(process.env.DB_KEY);
   const collection = db.collection("data");

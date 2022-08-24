@@ -6,6 +6,7 @@ import { prices, cities } from "../utils/constants";
 import Image from "next/image";
 import Logo from "../utils/logo.png";
 import { useRouter } from "next/router";
+import InputMask from "react-input-mask";
 export default function ServiceOrder(props) {
   const router = useRouter();
   const [termInfos, setTermInfos] = useState({
@@ -18,6 +19,7 @@ export default function ServiceOrder(props) {
     cpf_cnpj: "",
     peakPot: "",
     date: new Date().toLocaleDateString(),
+    cellPhoneNumber: "",
   });
   const [osInfos, setOsInfos] = useState({
     topology: "Inversor",
@@ -25,7 +27,7 @@ export default function ServiceOrder(props) {
     inverterModel: "",
     tileType: "",
     structureType: "",
-    waterPoint: "false",
+    waterPoint: "",
     wifiPassword: "",
     trafo: "false",
     configureInverter: "false",
@@ -33,20 +35,48 @@ export default function ServiceOrder(props) {
   });
   const [oss, setOss] = useState([]);
   const [cepMessage, setCepMessage] = useState("");
+  const [registerMask, setRegisterMask] = useState("999.999.999-99");
+  const [cellPhoneMask, setCellPhoneMask] = useState("(99) 99999-9999");
+  function resetState() {
+    setTermInfos({
+      clientName: "",
+      cep: "",
+      city: "",
+      district: "",
+      address: "",
+      number: "",
+      cpf_cnpj: "",
+      peakPot: "",
+      date: new Date().toLocaleDateString(),
+      cellPhoneNumber: "",
+    });
+    setOsInfos({
+      topology: "Inversor",
+      modulesQty: 0,
+      inverterModel: "",
+      tileType: "",
+      structureType: "",
+      waterPoint: "false",
+      wifiPassword: "",
+      trafo: "false",
+      configureInverter: "false",
+      serviceToBeDone: "",
+    });
+  }
   function handleAPICEP() {
-    if (termInfos.cep.length == 8) {
-      axios.get(`/api/cep/${termInfos.cep}`).then((res) => {
+    let onlyNumbersCep = termInfos.cep.replace("-", "");
+    axios
+      .get(`/api/cep/${onlyNumbersCep}`)
+      .then((res) => {
         setTermInfos({
           ...termInfos,
           district: res.data.bairro,
           address: res.data.logradouro,
           city: res.data.localidade,
         });
-      });
-      setCepMessage(null);
-    } else {
-      setCepMessage("CEP inválido");
-    }
+        setCepMessage(null);
+      })
+      .catch((err) => setCepMessage("CEP inválido"));
   }
   function handleGeneration(type) {
     if (type == "OS") {
@@ -56,29 +86,7 @@ export default function ServiceOrder(props) {
           osInfos: osInfos,
         })
         .then((res) => {
-          setTermInfos({
-            clientName: "",
-            cep: "",
-            city: "",
-            district: "",
-            address: "",
-            number: "",
-            cpf_cnpj: "",
-            peakPot: "",
-            date: new Date().toLocaleDateString(),
-          });
-          setOsInfos({
-            topology: "Inversor",
-            modulesQty: 0,
-            inverterModel: "",
-            tileType: "",
-            structureType: "",
-            waterPoint: "false",
-            wifiPassword: "",
-            trafo: "false",
-            configureInverter: "false",
-            serviceToBeDone: "",
-          });
+          resetState();
         });
     }
     if (type == "TERM") {
@@ -88,29 +96,7 @@ export default function ServiceOrder(props) {
           osInfos: undefined,
         })
         .then((res) => {
-          setTermInfos({
-            clientName: "",
-            cep: "",
-            city: "",
-            district: "",
-            address: "",
-            number: "",
-            cpf_cnpj: "",
-            peakPot: "",
-            date: new Date().toLocaleDateString(),
-          });
-          setOsInfos({
-            topology: "Inversor",
-            modulesQty: 0,
-            inverterModel: "",
-            tileType: "",
-            structureType: "",
-            waterPoint: "false",
-            wifiPassword: "",
-            trafo: "false",
-            configureInverter: "false",
-            serviceToBeDone: "",
-          });
+          resetState();
         });
     }
     if (type == "BOTH") {
@@ -120,29 +106,7 @@ export default function ServiceOrder(props) {
           osInfos: osInfos,
         })
         .then((res) => {
-          setTermInfos({
-            clientName: "",
-            cep: "",
-            city: "",
-            district: "",
-            address: "",
-            number: "",
-            cpf_cnpj: "",
-            peakPot: "",
-            date: new Date().toLocaleDateString(),
-          });
-          setOsInfos({
-            topology: "Inversor",
-            modulesQty: 0,
-            inverterModel: "",
-            tileType: "",
-            structureType: "",
-            waterPoint: "false",
-            wifiPassword: "",
-            trafo: "false",
-            configureInverter: "false",
-            serviceToBeDone: "",
-          });
+          resetState();
         });
     }
   }
@@ -160,7 +124,7 @@ export default function ServiceOrder(props) {
     }
   }, []);
   return (
-    <div className="flex flex-col w-screen xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
+    <div className="flex flex-col w-screen max-w-full xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
       <Link href="/">
         <div className="mb-4 flex justify-center self-center w-[110px] mt-3 bg-white rounded-lg">
           <Image
@@ -196,15 +160,16 @@ export default function ServiceOrder(props) {
             <span className="text-white text-center mb-2 font-semibold">
               CEP
             </span>
-            <input
-              type="number"
-              className="outline-none  rounded p-2 h-10 text-base w-64 text-center"
+            <InputMask
+              type="text"
+              mask="99999-999"
+              maskChar=""
               value={termInfos.cep}
-              placeholder="Somente números"
+              className="outline-none rounded p-2 h-10 text-base w-64 text-center"
               onChange={(e) =>
                 setTermInfos({ ...termInfos, cep: e.target.value })
               }
-            />
+            ></InputMask>
             <span className="text-red-600">{cepMessage && cepMessage}</span>
           </div>
           <div className="flex flex-col items-center lg:flex-row lg:self-end my-2 lg:my-0">
@@ -270,16 +235,53 @@ export default function ServiceOrder(props) {
           </div>
           <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
+              Celular do cliente
+            </span>
+            <InputMask
+              type="text"
+              mask={cellPhoneMask}
+              maskChar=""
+              value={termInfos.cellPhoneNumber}
+              className="outline-none rounded p-2 h-10 text-base w-64 text-center"
+              onBlur={(e) => {
+                if (e.target.value.length === 14) {
+                  setCellPhoneMask("(99) 9999-9999");
+                }
+              }}
+              onFocus={(e) => {
+                if (e.target.value.length === 14) {
+                  setCellPhoneMask("(99) 99999-9999");
+                }
+              }}
+              onChange={(e) => {
+                setTermInfos({ ...termInfos, cellPhoneNumber: e.target.value });
+              }}
+            ></InputMask>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-white text-center mb-2 font-semibold">
               CPF/CNPJ
             </span>
-            <input
+            <InputMask
               type="text"
-              className="outline-none bg-gray-400 rounded p-2 h-10 text-white text-base w-64 text-center"
+              mask={registerMask}
+              maskChar=""
               value={termInfos.cpf_cnpj}
-              onChange={(e) =>
-                setTermInfos({ ...termInfos, cpf_cnpj: e.target.value })
-              }
-            />
+              className="outline-none rounded p-2 h-10 text-base w-64 text-center"
+              onBlur={(e) => {
+                if (e.target.value.length === 14) {
+                  setRegisterMask("999.999.999-99");
+                }
+              }}
+              onFocus={(e) => {
+                if (e.target.value.length === 14) {
+                  setRegisterMask("99.999.999/9999-99");
+                }
+              }}
+              onChange={(e) => {
+                setTermInfos({ ...termInfos, cpf_cnpj: e.target.value });
+              }}
+            ></InputMask>
           </div>
           <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
@@ -385,16 +387,14 @@ export default function ServiceOrder(props) {
             <span className="text-white text-center mb-2 font-semibold">
               Ponto de água
             </span>
-            <select
+            <input
+              type="text"
               className="outline-none rounded p-2 h-10 text-base w-64 text-center"
               value={osInfos.waterPoint}
               onChange={(e) =>
                 setOsInfos({ ...osInfos, waterPoint: e.target.value })
               }
-            >
-              <option value="false">Não</option>
-              <option value="true">Sim</option>
-            </select>
+            />
           </div>
           <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">

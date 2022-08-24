@@ -78,7 +78,7 @@ export default function ProposesManagement(props) {
     }
   }, []);
   return (
-    <div className="flex flex-col w-screen xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
+    <div className="flex flex-col w-screen max-w-full xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
       <div className="mb-4 flex justify-center self-center w-[110px] mt-3 bg-white rounded-lg">
         <Link href="/">
           <div>
