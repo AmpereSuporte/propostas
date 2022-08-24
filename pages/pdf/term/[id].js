@@ -23,7 +23,7 @@ function termPDF({ info }) {
           <strong>AMPÈRE ENGENHARIA E CONSULTORIA ELÉTRICA LTDA</strong>,
           inscrita sob o CNPJ nº 27.901.968/0001-45, realizou no dia{" "}
           {new Date().toLocaleDateString()} à manutenção preventiva, prevista em
-          contrato, do sistema fotovoltaico de 10,35 kWp instalado na{" "}
+          contrato, do sistema fotovoltaico de {info.generalInfos.peakPot} kWp instalado na{" "}
           <strong>
             {info.generalInfos.address}, Nº {info.generalInfos.number},{" "}
             {info.generalInfos.district}
@@ -32,7 +32,7 @@ function termPDF({ info }) {
         </p>
         <p className="mt-12">Por ser verdade assino este termo</p>
         <p className="mt-6 text-end">
-          Ituiutaba, {new Date().toLocaleDateString()}.
+          Ituiutaba, {info.generalInfos.date}
         </p>
         <div className="mt-32 flex flex-col">
           <hr className="border-t-2 border-black" />
