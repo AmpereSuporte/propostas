@@ -22,7 +22,7 @@ function termPDF({ info }) {
           técnica da empresa{" "}
           <strong>AMPÈRE ENGENHARIA E CONSULTORIA ELÉTRICA LTDA</strong>,
           inscrita sob o CNPJ nº 27.901.968/0001-45, realizou no dia{" "}
-          {new Date().toLocaleDateString()} à manutenção preventiva, prevista em
+          {new Date(info.generalInfos.date).toLocaleDateString()} à manutenção preventiva, prevista em
           contrato, do sistema fotovoltaico de {info.generalInfos.peakPot} kWp instalado na{" "}
           <strong>
             {info.generalInfos.address}, Nº {info.generalInfos.number},{" "}
