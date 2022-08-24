@@ -32,7 +32,7 @@ function termPDF({ info }) {
         </p>
         <p className="mt-12">Por ser verdade assino este termo</p>
         <p className="mt-6 text-end">
-          Ituiutaba, {info.generalInfos.date}
+          Ituiutaba, {new Date(info.generalInfos.date).toLocaleDateString()}
         </p>
         <div className="mt-32 flex flex-col">
           <hr className="border-t-2 border-black" />
