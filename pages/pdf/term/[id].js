@@ -5,7 +5,6 @@ import Logo from "../../../utils/whitelogo.png";
 import connectToDatabase2 from "../../../utils/mongo2";
 import { ObjectId } from "mongodb";
 function termPDF({ info }) {
-  console.log(info);
   return (
     <div className="w-[21cm] h-[29.7cm] p-4">
       <Link href="/serviceOrder">
@@ -56,7 +55,6 @@ function termPDF({ info }) {
 export async function getServerSideProps({ query }) {
   // Fetch data from external API
   const id = query.id;
-  console.log(id);
 
   const db = await connectToDatabase2(process.env.DB_KEY);
   const collection = db.collection("data");
