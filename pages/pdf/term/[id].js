@@ -5,6 +5,7 @@ import Logo from "../../../utils/whitelogo.png";
 import connectToDatabase2 from "../../../utils/mongo2";
 import { ObjectId } from "mongodb";
 function termPDF({ info }) {
+  console.log(info);
   return (
     <div className="w-[21cm] h-[29.7cm] p-4">
       <Link href="/serviceOrder">
@@ -22,8 +23,9 @@ function termPDF({ info }) {
           técnica da empresa{" "}
           <strong>AMPÈRE ENGENHARIA E CONSULTORIA ELÉTRICA LTDA</strong>,
           inscrita sob o CNPJ nº 27.901.968/0001-45, realizou no dia{" "}
-          {new Date(info.generalInfos.date).toLocaleDateString()} à manutenção preventiva, prevista em
-          contrato, do sistema fotovoltaico de {info.generalInfos.peakPot} kWp instalado na{" "}
+          {new Date(info.generalInfos.date).toLocaleDateString()} à manutenção
+          preventiva, prevista em contrato, do sistema fotovoltaico de{" "}
+          {info.generalInfos.peakPot} kWp instalado na{" "}
           <strong>
             {info.generalInfos.address}, Nº {info.generalInfos.number},{" "}
             {info.generalInfos.district}

@@ -18,7 +18,7 @@ export default function ServiceOrder(props) {
     number: "",
     cpf_cnpj: "",
     peakPot: "",
-    date: new Date().toLocaleDateString(),
+    date: new Date(),
     cellPhoneNumber: "",
   });
   const [osInfos, setOsInfos] = useState({
@@ -35,7 +35,6 @@ export default function ServiceOrder(props) {
   });
   const [oss, setOss] = useState([]);
   const [cepMessage, setCepMessage] = useState("");
-  const [registerMask, setRegisterMask] = useState("999.999.999-99");
   const [cellPhoneMask, setCellPhoneMask] = useState("(99) 99999-9999");
   function resetState() {
     setTermInfos({
@@ -47,7 +46,7 @@ export default function ServiceOrder(props) {
       number: "",
       cpf_cnpj: "",
       peakPot: "",
-      date: new Date().toLocaleDateString(),
+      date: new Date(),
       cellPhoneNumber: "",
     });
     setOsInfos({
@@ -56,7 +55,7 @@ export default function ServiceOrder(props) {
       inverterModel: "",
       tileType: "",
       structureType: "",
-      waterPoint: "false",
+      waterPoint: "",
       wifiPassword: "",
       trafo: "false",
       configureInverter: "false",
@@ -82,7 +81,7 @@ export default function ServiceOrder(props) {
     if (type == "OS") {
       axios
         .post("/api/os", {
-          generalInfos: termInfos,
+          generalInfos: { ...termInfos, date: `${termInfos.date} 00:00` },
           osInfos: osInfos,
         })
         .then((res) => {
@@ -92,7 +91,7 @@ export default function ServiceOrder(props) {
     if (type == "TERM") {
       axios
         .post("/api/os", {
-          generalInfos: termInfos,
+          generalInfos: { ...termInfos, date: `${termInfos.date} 00:00` },
           osInfos: undefined,
         })
         .then((res) => {
@@ -102,7 +101,7 @@ export default function ServiceOrder(props) {
     if (type == "BOTH") {
       axios
         .post("/api/os", {
-          generalInfos: termInfos,
+          generalInfos: { ...termInfos, date: `${termInfos.date} 00:00` },
           osInfos: osInfos,
         })
         .then((res) => {
@@ -123,6 +122,7 @@ export default function ServiceOrder(props) {
       getOss();
     }
   }, []);
+  console.log(termInfos.cpf_cnpj);
   return (
     <div className="flex flex-col w-screen max-w-full xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
       <Link href="/">
@@ -246,11 +246,13 @@ export default function ServiceOrder(props) {
               onBlur={(e) => {
                 if (e.target.value.length === 14) {
                   setCellPhoneMask("(99) 9999-9999");
+                  setTermInfos(e.target.value);
                 }
               }}
               onFocus={(e) => {
                 if (e.target.value.length === 14) {
                   setCellPhoneMask("(99) 99999-9999");
+                  setTermInfos(e.target.value);
                 }
               }}
               onChange={(e) => {
@@ -262,26 +264,14 @@ export default function ServiceOrder(props) {
             <span className="text-white text-center mb-2 font-semibold">
               CPF/CNPJ
             </span>
-            <InputMask
+            <input
               type="text"
-              mask={registerMask}
-              maskChar=""
               value={termInfos.cpf_cnpj}
               className="outline-none rounded p-2 h-10 text-base w-64 text-center"
-              onBlur={(e) => {
-                if (e.target.value.length === 14) {
-                  setRegisterMask("999.999.999-99");
-                }
-              }}
-              onFocus={(e) => {
-                if (e.target.value.length === 14) {
-                  setRegisterMask("99.999.999/9999-99");
-                }
-              }}
               onChange={(e) => {
                 setTermInfos({ ...termInfos, cpf_cnpj: e.target.value });
               }}
-            ></InputMask>
+            />
           </div>
           <div className="flex flex-col items-center">
             <span className="text-white text-center mb-2 font-semibold">
