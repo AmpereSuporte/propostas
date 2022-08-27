@@ -12,16 +12,22 @@ export default async function handler(req, res) {
     distance,
     price,
   } = req.body;*/
-    const { termInfos, osInfos } = req.body;
+    const { generalInfos, osInfos } = req.body;
     const db = await connectToDatabase2(process.env.DB_KEY);
     const collection = db.collection("data");
-    await collection.insertOne(req.body);
+    await collection.insertOne({
+      generalInfos: { ...generalInfos, date: new Date(generalInfos.date) },
+      osInfos: { ...osInfos },
+    });
     console.log("UEPA");
     return res.status(201).json("Dados salvos");
   } else if (req.method === "GET") {
     const db = await connectToDatabase2(process.env.DB_KEY);
     const collection = db.collection("data");
+    var dateFilterParam = new Date();
+    dateFilterParam.setDate(dateFilterParam.getDate() - 2);
     let OSs = await collection.find({}).toArray();
+    //         "generalInfos.date": { $gt: dateFilterParam },
     return res.status(201).json(OSs);
   }
 }
