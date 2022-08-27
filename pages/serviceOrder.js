@@ -9,6 +9,10 @@ import { useRouter } from "next/router";
 import InputMask from "react-input-mask";
 export default function ServiceOrder(props) {
   const router = useRouter();
+  var currentDate = new Date();
+  let param = new Date();
+  param.setDate(currentDate.getDate() - 2);
+  const [dateFilterParam, setDateFilterParam] = useState(param);
   const [termInfos, setTermInfos] = useState({
     clientName: "",
     cep: "",
@@ -81,7 +85,10 @@ export default function ServiceOrder(props) {
     if (type == "OS") {
       axios
         .post("/api/os", {
-          generalInfos: { ...termInfos, date: `${termInfos.date} 00:00` },
+          generalInfos: {
+            ...termInfos,
+            date: new Date(`${termInfos.date} 00:00`),
+          },
           osInfos: osInfos,
         })
         .then((res) => {
@@ -91,7 +98,10 @@ export default function ServiceOrder(props) {
     if (type == "TERM") {
       axios
         .post("/api/os", {
-          generalInfos: { ...termInfos, date: `${termInfos.date} 00:00` },
+          generalInfos: {
+            ...termInfos,
+            date: new Date(`${termInfos.date} 00:00`),
+          },
           osInfos: undefined,
         })
         .then((res) => {
@@ -101,7 +111,10 @@ export default function ServiceOrder(props) {
     if (type == "BOTH") {
       axios
         .post("/api/os", {
-          generalInfos: { ...termInfos, date: `${termInfos.date} 00:00` },
+          generalInfos: {
+            ...termInfos,
+            date: new Date(`${termInfos.date} 00:00`),
+          },
           osInfos: osInfos,
         })
         .then((res) => {
@@ -109,12 +122,31 @@ export default function ServiceOrder(props) {
         });
     }
   }
+  function filterDataByDate(data) {
+    /*let param = new Date();
+    param.setDate(currentDate.getDate() - 2);
+    param = param.getTime();*/
+    var filteredData = data.filter(
+      (d) =>
+        new Date(d.generalInfos.date).getTime() >
+        new Date(dateFilterParam).getTime()
+    );
+    return filteredData;
+  }
   function getOss() {
     axios.get("/api/os").then((res) => {
-      setOss(res.data);
+      let filteredOSS = filterDataByDate(res.data);
+      setOss(filteredOSS);
     });
   }
-
+  const capitalize = (s) => {
+    if (typeof s !== "string") return "";
+    let arrayOfWords = s.split(" ");
+    arrayOfWords = arrayOfWords.map(
+      (word) => word.toLowerCase().charAt(0).toUpperCase() + word.slice(1)
+    );
+    return arrayOfWords.join(" ");
+  };
   useEffect(() => {
     if (!props.credentials._id) {
       router.push("/auth/auth");
@@ -122,7 +154,6 @@ export default function ServiceOrder(props) {
       getOss();
     }
   }, []);
-  console.log(termInfos.cpf_cnpj);
   return (
     <div className="flex flex-col w-screen max-w-full xl:min-h-[100vh] min-h-[100vh] bg-[#15599b]">
       <Link href="/">
@@ -463,7 +494,7 @@ export default function ServiceOrder(props) {
         </div>
       </div>
       <div className="flex flex-col mt-6 lg:mt-12 items-center px-4">
-        <div className="grid gap-x-2 items-center grid-rows-2 lg:grid-cols-2 lg:grid-rows-1">
+        <div className="grid w-[40%] gap-2 grid-rows-3 lg:grid-cols-3 lg:grid-rows-1">
           <h1 className="text-[#f6c228] text-center text-2xl uppercase font-raleway font-bold">
             OSs criadas
           </h1>
@@ -473,6 +504,18 @@ export default function ServiceOrder(props) {
           >
             &#x21bb; Atualizar
           </button>
+          <div className="flex items-center">
+            <span className="text-white text-center mr-2 font-semibold">
+              Filtrar OSs desde:
+            </span>
+            <input
+              type="date"
+              className="outline-none rounded p-2 h-10 text-base w-64 text-center"
+              value={dateFilterParam}
+              placeholder={`${dateFilterParam}`}
+              onChange={(e) => setDateFilterParam(e.target.value)}
+            />
+          </div>
         </div>
         <div className="mt-6 lg:w-[90%] w-full">
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
