@@ -246,13 +246,11 @@ export default function ServiceOrder(props) {
               onBlur={(e) => {
                 if (e.target.value.length === 14) {
                   setCellPhoneMask("(99) 9999-9999");
-                  setTermInfos(e.target.value);
                 }
               }}
               onFocus={(e) => {
                 if (e.target.value.length === 14) {
                   setCellPhoneMask("(99) 99999-9999");
-                  setTermInfos(e.target.value);
                 }
               }}
               onChange={(e) => {
