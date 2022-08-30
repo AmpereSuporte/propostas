@@ -22,7 +22,7 @@ function pdfPage({ info }) {
 
   function quotaCreditNumber() {
     console.log(mtPrice / 200);
-    if (Math.floor(mtPrice / 200) <= 1) {
+    if (Math.floor(mtPrice / 200) < 1) {
       return "";
     } else if (mtPrice / 200 > 12) {
       return "DIVIDIDO EM ATÉ 12x NO CARTÃO";
