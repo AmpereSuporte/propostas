@@ -21,23 +21,23 @@ function pdfPage({ info }) {
   ).toFixed(2);
 
   function quotaCreditNumber() {
-    console.log(mtPrice / 200);
-    if (Math.floor(mtPrice / 200) <= 1) {
+    console.log(mtPrice / 250);
+    if (Math.floor(mtPrice / 250) < 1) {
       return "";
-    } else if (mtPrice / 200 > 12) {
+    } else if (mtPrice / 250 > 12) {
       return "DIVIDIDO EM ATÉ 12x NO CARTÃO";
     } else {
-      return `DIVIDIDO EM ATÉ ${Math.floor(mtPrice / 200)}x NO CARTÃO`;
+      return `DIVIDIDO EM ATÉ ${Math.floor(mtPrice / 250)}x NO CARTÃO`;
     }
   }
   function quotaBoletoNumber() {
-    console.log(mtPrice / 200);
-    if (Math.floor(mtPrice / 500) <= 1) {
+    console.log(mtPrice / 250);
+    if (Math.floor(mtPrice / 250) <= 1) {
       return "";
-    } else if (mtPrice / 500 > 12) {
+    } else if (mtPrice / 250 > 12) {
       return " OU 12x NO BOLETO";
     } else {
-      return ` OU ${Math.floor(mtPrice / 500)}x NO BOLETO`;
+      return ` OU ${Math.floor(mtPrice / 250)}x NO BOLETO`;
     }
   }
   return (
