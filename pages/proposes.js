@@ -5,6 +5,8 @@ import { prices, cities } from "../utils/constants";
 import Image from "next/image";
 import Logo from "../utils/logo.png";
 import { useRouter } from "next/router";
+import List from "../components/List";
+
 export default function ProposesManagement(props) {
   const router = useRouter();
   const [infos, setInfos] = useState({
@@ -17,7 +19,10 @@ export default function ProposesManagement(props) {
     distance: 0,
   });
   const [message, setMessage] = useState("");
-  const [proposes, setProposes] = useState([]);
+  const [proposesInPresentation, setProposesInPresentation] = useState([]);
+  const [proposesInNegotiation, setProposesInNegotiation] = useState([]);
+  const [proposesInClosing, setProposesInClosing] = useState([]);
+  const [alreadySelled, setAlreadySelled] = useState([]);
   function findPrice() {
     for (let i = 0; i < prices.length; i++) {
       console.log(prices[i]);
@@ -42,6 +47,8 @@ export default function ProposesManagement(props) {
           (infos.modulesPot * infos.modulesQty * findExpectedGen()) /
           1000
         ).toFixed(2),
+        negotiationStage: 1,
+        currentPlanOption: 0,
       })
       .then((res) => {
         setMessage(res.data);
@@ -58,13 +65,31 @@ export default function ProposesManagement(props) {
   }
   function fetchProposes() {
     setMessage("");
-    axios.get("/api/propose").then((res) => setProposes(res.data));
+    axios.get("/api/propose").then((res) => {
+      let inPresentation = res.data.filter((p) => p.negotiationStage == 1);
+      setProposesInPresentation(inPresentation);
+      let inNegotiation = res.data.filter((p) => p.negotiationStage == 2);
+      setProposesInNegotiation(inNegotiation);
+      let inClosing = res.data.filter((p) => p.negotiationStage == 3);
+      setProposesInClosing(inClosing);
+      let selled = res.data.filter((p) => p.negotiationStage == 4);
+      setAlreadySelled(selled);
+    });
   }
   function fetchUserProposes() {
     setMessage("");
     axios
       .post("/api/userProposes", { user: props.credentials.user })
-      .then((res) => setProposes(res.data));
+      .then((res) => {
+        let inPresentation = res.data.filter((p) => p.negotiationStage == 1);
+        setProposesInPresentation(inPresentation);
+        let inNegotiation = res.data.filter((p) => p.negotiationStage == 2);
+        setProposesInNegotiation(inNegotiation);
+        let inClosing = res.data.filter((p) => p.negotiationStage == 3);
+        setProposesInClosing(inClosing);
+        let selled = res.data.filter((p) => p.negotiationStage == 4);
+        setAlreadySelled(selled);
+      });
   }
   useEffect(() => {
     if (!props.credentials._id) {
@@ -219,131 +244,40 @@ export default function ProposesManagement(props) {
             &#x21bb; Atualizar
           </button>
         </div>
-        <div className="mt-6 lg:w-[90%] w-full">
-          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full sm:px-6 lg:px-8">
-              <div className="overflow-hidden">
-                <table className="min-w-full border text-center">
-                  <thead className="border-b bg-white">
-                    <tr className="grid lg:grid-cols-8 md:grid-cols-6 grid-cols-3">
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900  py-2 border-r"
-                      >
-                        Nome do cliente
-                      </th>
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900  py-2 border-r hidden lg:block"
-                      >
-                        Cidade
-                      </th>
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900  py-2 border-r"
-                      >
-                        Atendente
-                      </th>
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900  py-2 border-r hidden lg:block"
-                      >
-                        Nº Módulos - Potência
-                      </th>
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900  py-2 border-r hidden md:block"
-                      >
-                        Preço Manutenção Simples
-                      </th>
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900 py-2 border-r hidden md:block"
-                      >
-                        Preço Plano Sol
-                      </th>
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900 py-2 border-r hidden md:block"
-                      >
-                        Preço Plano Sol+
-                      </th>
-                      <th
-                        scope="col"
-                        className="text-sm font-medium text-gray-900 px-6 py-2"
-                      >
-                        Ações
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {proposes?.map((propose) => (
-                      <tr
-                        key={propose._id}
-                        className="grid lg:grid-cols-8 md:grid-cols-6 grid-cols-3 py-4 border-b bg-white align-middle"
-                      >
-                        <td className="px-2 text-sm font-medium text-gray-900">
-                          {propose.clientName}
-                        </td>
-                        <td className="px-2 text-sm font-medium text-gray-900 hidden lg:block">
-                          {propose.city}
-                        </td>
-                        <td className="px-2 text-sm font-medium text-gray-900">
-                          {propose.attendant}
-                        </td>
-                        <td className="px-2 text-sm font-medium text-gray-900 hidden lg:block">
-                          {propose.modulesQty} - {propose.modulesPot}
-                        </td>
-                        <td className="px-2 text-sm font-medium text-gray-900 hidden md:block">
-                          R${" "}
-                          {(
-                            propose.price * propose.modulesQty +
-                            1.5 * 2 * propose.distance
-                          )
-                            .toFixed(2)
-                            .replace(".", ",")}
-                        </td>
-                        <td className="px-2 text-sm font-medium text-gray-900 hidden md:block">
-                          R${" "}
-                          {(
-                            1.3 * propose.price * propose.modulesQty +
-                            1.5 * 2 * propose.distance
-                          )
-                            .toFixed(2)
-                            .replace(".", ",")}
-                        </td>
-                        <td className="px-2 text-sm font-medium text-gray-900 hidden md:block">
-                          R${" "}
-                          {(
-                            1.95 * propose.price * propose.modulesQty +
-                            1.5 * 2 * propose.distance
-                          )
-                            .toFixed(2)
-                            .replace(".", ",")}
-                        </td>
-                        <td className="px-2 text-sm font-medium text-gray-900">
-                          <Link href={`/pdf/propose/${propose._id}`}>
-                            <button className="bg-[#f6c228] font-semibold py-1 px-2 rounded">
-                              Proposta
-                            </button>
-                          </Link>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          {/*{proposes?.map((propose) => (
-            <Link key={propose._id} href={`/pdf/${propose._id}`}>
-              <div className="text-xl mt-2 w-64 text-center py-2 bg-white text-[#15599b] rounded-lg font-semibold">
-                <div>{propose.clientName}</div>
-                <div>{propose.city}</div>
-              </div>
-            </Link>
-          ))}*/}
-        </div>
+      </div>
+      <div className="grid lg:grid-cols-4 lg:grid-rows-1 grid-rows-4 grid-cols-1  w-full px-6 py-2 gap-4 mt-5">
+        <List
+          fetchProposes={
+            props.credentials.admin ? fetchProposes : fetchUserProposes
+          }
+          proposes={proposesInPresentation}
+          title="Em apresentação"
+          listId={1}
+        />
+        <List
+          fetchProposes={
+            props.credentials.admin ? fetchProposes : fetchUserProposes
+          }
+          proposes={proposesInNegotiation}
+          title="Em negociação"
+          listId={2}
+        />
+        <List
+          fetchProposes={
+            props.credentials.admin ? fetchProposes : fetchUserProposes
+          }
+          proposes={proposesInClosing}
+          title="Em fechamento"
+          listId={3}
+        />
+        <List
+          fetchProposes={
+            props.credentials.admin ? fetchProposes : fetchUserProposes
+          }
+          proposes={alreadySelled}
+          title="Vendas fechadas"
+          listId={4}
+        />
       </div>
     </div>
   );
