@@ -73,7 +73,7 @@ function Card({ propose, fetchProposes }) {
       className="flex w-full flex-col gap-y-2 py-2 mt-2 border border-gray-200 rounded shadow-lg"
     >
       <div className="flex justify-around">
-        <p>{propose.clientName}</p>
+        <p className="text-center">{propose.clientName}</p>
         <Link href={`/pdf/propose/${propose._id}`}>
           <button className="bg-[#f6c228] px-2 rounded">Ver</button>
         </Link>
@@ -98,7 +98,7 @@ function Card({ propose, fetchProposes }) {
         </div>
         <div className="flex flex-col items-center">
           <span className="text-xs uppercase text-gray-400">Estágio:</span>
-          <p className="text-md uppercase text-[#15599b]">
+          <p className="text-xs text-center uppercase text-[#15599b]">
             {stages[propose.negotiationStage]}
           </p>
         </div>
