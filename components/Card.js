@@ -30,10 +30,12 @@ function Card({ propose, fetchProposes }) {
       text: "Plano Sol+",
     },
   ];
+
   var plansForSelection = plans.filter(
     (p) => p.id != propose.currentPlanOption
   );
   var currentPlan = plans.filter((p) => p.id == propose.currentPlanOption);
+
   function handlePlanChange(plan) {
     setPlan(plan);
     axios
@@ -72,19 +74,23 @@ function Card({ propose, fetchProposes }) {
       key={propose._id}
       className="flex w-full flex-col gap-y-2 py-2 mt-2 border border-gray-200 rounded shadow-lg"
     >
-      <div className="flex justify-around">
-        <p className="text-center">{propose.clientName}</p>
+      <div className="grid grid-cols-4">
+        <p className="col-span-2 text-sm text-center">{propose.clientName}</p>
         <Link href={`/pdf/propose/${propose._id}`}>
-          <button className="bg-[#f6c228] px-2 rounded">Ver</button>
+          <button className="bg-[#f6c228] col-span-1 h-[24px] w-[40px] px-2 rounded">
+            Ver
+          </button>
         </Link>
-        <p className="bg-green-400 rounded px-1">R$ {getCurrentPlanPrice()}</p>
+        <p className="bg-green-400 col-span-1 mx-1 align-middle h-fit text-center rounded px-1">
+          R$ {getCurrentPlanPrice()}
+        </p>
       </div>
       <div className="w-full hidden xl:flex justify-around">
         <div className="flex flex-col items-center">
           <span className="text-xs uppercase text-gray-400">Plano:</span>
           <select
             onChange={(e) => handlePlanChange(e.target.value)}
-            className="outline-none rounded text-base text-center"
+            className="outline-none rounded text-base text-center text-[#15599b] text-sm"
           >
             <option defaultValue value={propose.currentPlanOption}>
               {currentPlan[0].text}
