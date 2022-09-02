@@ -59,7 +59,7 @@ function List({ proposes, title, listId, fetchProposes }) {
     for (var i = 0; i < proposes.length; i++) {
       let qty = Number(proposes[i].modulesQty);
       let pot = Number(proposes[i].modulesPot);
-      if (isNaN()) {
+      if (isNaN(proposes[i].modulesPot || proposes[i].modulesQty)) {
         totalSum = totalSum;
       } else {
         totalSum = totalSum + pot * qty;
