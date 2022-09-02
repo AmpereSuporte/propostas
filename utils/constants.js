@@ -113,3 +113,89 @@ export const cities = [
     annualGenFactor: 120.52,
   },
 ];
+const routes = [
+  "Projetos",
+  "Obras",
+  "Suprimentos",
+  "O&M",
+  "Marketing",
+  "Vendas",
+  "Pós-Venda",
+  "PPS",
+  "Inside Sales",
+  "Financeiro",
+  "ADM",
+  "RH",
+];
+const acessAuth = {
+  diretorExecutivo: {
+    label: "Diretor(a) Executivo",
+    accessibleRoutes: routes,
+  },
+  diretorEngenharia: {
+    label: "Diretor(a) de Engenharia",
+    accessibleRoutes: ["Projetos", "Obras", "Suprimentos", "O&M"],
+  },
+  diretorComercial: {
+    label: "Diretor(a) Comercial",
+    accessibleRoutes: [
+      "Marketing",
+      "Vendas",
+      "Pós-Venda",
+      "PPS",
+      "Inside Sales",
+    ],
+  },
+  diretorAdministrativo: {
+    label: "Diretor(a) Administrativo & Finaceiro",
+    accessibleRoutes: ["Financeiro", "ADM", "RH"],
+  },
+  supervisorProjetos: {
+    label: "Supervisor - Setor de Projetos",
+    accessibleRoutes: ["Projetos"],
+  },
+  supervisorObras: {
+    label: "Supervisor - Setor de Obras",
+    accessibleRoutes: ["Obras"],
+  },
+  supervisorSuprimentos: {
+    label: "Supervisor - Suprimentos",
+    accessibleRoutes: ["Suprimentos"],
+  },
+  supervisorOeM: {
+    label: "Supervisor - O&M",
+    accessibleRoutes: ["O&M"],
+  },
+  supervisorMarketing: {
+    label: "Supervisor - Marketing",
+    accessibleRoutes: ["Marketing"],
+  },
+  supervisorVendas: {
+    label: "Supervisor - Vendas",
+    accessibleRoutes: ["Vendas"],
+  },
+  supervisorPosVenda: {
+    label: "Supervisor - Pós Venda",
+    accessibleRoutes: ["Pós-Venda"],
+  },
+  supervisorPPS: {
+    label: "Supervisor - PPS",
+    accessibleRoutes: ["PPS"],
+  },
+  supervisorInsideSales: {
+    label: "Supervisor - Inside Sales",
+    accessibleRoutes: ["Inside Sales"],
+  },
+  supervisorFinanceiro: {
+    label: "Supervisor - Financeiro",
+    accessibleRoutes: ["Financeiro"],
+  },
+  supervisorAdministracao: {
+    label: "Supervisor - Administração",
+    accessibleRoutes: ["ADM"],
+  },
+  supervisorRH: {
+    label: "Supervisor Recursos Humanos",
+    accessibleRoutes: ["RH"],
+  },
+};

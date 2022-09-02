@@ -22,7 +22,7 @@ function Index(props) {
           className="rounded-full"
         />
         <h1 className="text-3xl text-[#15599b] text-center font-raleway pt-3 uppercase font-bold">
-          Departamento de Suporte técnico
+          Suporte técnico
         </h1>
       </div>
       <h1 className="text-3xl self-center text-[#15599b] mb-6 font-raleway font-bold">
@@ -31,7 +31,7 @@ function Index(props) {
       <div
         className={
           props.credentials.admin
-            ? "grid h-full lg:grid-cols-2 lg:grid-rows-1 grid-rows-2 gap-x-2"
+            ? "grid h-full lg:grid-cols-3 lg:grid-rows-1 grid-rows-3 gap-x-2"
             : "w-full h-full grid grid-cols-1 grid-rows-1 p-2"
         }
       >
@@ -52,6 +52,18 @@ function Index(props) {
                 <Image height="100px" width="100px" src={OEM} />
                 <p className="text-white font-raleway font-semibold cursor-pointer">
                   Controle OSs
+                </p>
+              </div>
+            </Link>
+          </div>
+        )}
+        {props.credentials.admin && (
+          <div className="cursor-pointer h-full">
+            <Link href="/projects">
+              <div className="flex items-center justify-center bg-green-400 hover:bg-green-500 h-full px-2 py-4">
+                <Image height="100px" width="100px" src={OEM} />
+                <p className="text-white font-raleway font-semibold cursor-pointer">
+                  Controle de Projetos
                 </p>
               </div>
             </Link>
