@@ -353,7 +353,7 @@ function pdfPage({ info }) {
                         R${" "}
                         {(
                           1.95 * info.price * info.modulesQty +
-                          1.5 * 2 * info.distance
+                          1.5 * 4 * info.distance
                         )
                           .toFixed(2)
                           .replace(".", ",")}
