@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import connectToDatabase from "../../utils/mongo";
 
 export default async function handler(req, res) {
@@ -22,5 +23,25 @@ export default async function handler(req, res) {
     const collection = db.collection("projects");
     let projects = await collection.find({}).toArray();
     return res.status(201).json(projects);
+  } else if (req.method === "PUT") {
+    const db = await connectToDatabase(process.env.DB_KEY);
+    const collection = db.collection("projects");
+    var string = `reports.${req.body.index}`;
+    var newObj = await collection.findOneAndUpdate(
+      {
+        _id: ObjectId(req.body.id),
+        "reports.month": req.body.index + 1,
+      },
+      {
+        $set: {
+          "reports.$.sent": req.body.status,
+          "reports.$.sentDate": new Date().toISOString(),
+        },
+      },
+      {
+        returnDocument: "after",
+      }
+    );
+    return res.json("ATUALIZADO");
   }
 }

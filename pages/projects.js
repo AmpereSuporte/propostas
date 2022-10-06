@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "../utils/logo.png";
+import ProjectRow from "../components/ProjectRow";
 function Projects(props) {
   const [projects, setProjects] = useState([]);
   const router = useRouter();
@@ -12,12 +13,17 @@ function Projects(props) {
     axios.get("/api/projects").then((res) => setProjects(res.data));
   }
   useEffect(() => {
-    if (props.credentials._id && props.credentials.admin) {
+    {
+      /**    if (props.credentials._id && props.credentials.admin) {
       fetchProjects();
     } else {
       router.push("/auth/auth");
+      
+    } */
+      fetchProjects();
     }
   }, []);
+
   const plans = [
     {
       id: 0,
@@ -51,53 +57,56 @@ function Projects(props) {
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="py-3 text-center px-6">
                 Nome do cliente
               </th>
-              <th scope="col" className="py-3 px-4">
+              <th scope="col" className="py-3 text-center px-4">
                 Cidade
               </th>
-              <th scope="col" className="hidden xl:table-cell py-3 px-4">
+              <th
+                scope="col"
+                className="hidden text-center xl:table-cell py-3 px-4"
+              >
                 Número de módulos
               </th>
-              <th scope="col" className="hidden xl:table-cell py-3 px-4">
+              <th
+                scope="col"
+                className="hidden text-center xl:table-cell py-3 px-4"
+              >
                 Potência dos módulos
               </th>
-              <th scope="col" className="hidden md:table-cell py-3 px-4">
+              <th
+                scope="col"
+                className="hidden text-center md:table-cell py-3 px-4"
+              >
                 Plano adquirido
               </th>
-              <th scope="col" className="hidden md:table-cell py-3 px-4">
+              <th
+                scope="col"
+                className="hidden text-center md:table-cell py-3 px-4"
+              >
+                Data de assinatura
+              </th>
+              <th
+                scope="col"
+                className="hidden text-center md:table-cell py-3 px-4"
+              >
                 Atendente
               </th>
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="py-3 text-center px-6">
                 Responsável
+              </th>
+              <th
+                scope="col"
+                className="hidden text-center md:table-cell py-3 px-4"
+              >
+                Relatórios
               </th>
             </tr>
           </thead>
           <tbody>
             {projects?.map((p) => (
-              <tr
-                key={p._id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              >
-                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {p.projectInfo.clientName}
-                </td>
-                <td className="py-4 px-4">{p.projectInfo.clientCity}</td>
-                <td className="hidden xl:table-cell py-4 px-4">
-                  {p.projectInfo.modulesQty}
-                </td>
-                <td className="hidden xl:table-cell py-4 px-4">
-                  {p.projectInfo.modulesPot}
-                </td>
-                <td className="hidden md:table-cell py-4 px-4">
-                  {plans[p.projectInfo.selectedPlan].text}
-                </td>
-                <td className="hidden md:table-cell py-4 px-4">
-                  {p.projectInfo.attendant}
-                </td>
-                <td className="py-4 px-4">{p.responsible}</td>
-              </tr>
+              <ProjectRow fetchProjects={fetchProjects} key={p._id} p={p} />
             ))}
           </tbody>
         </table>
