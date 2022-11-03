@@ -27,6 +27,7 @@ export default async function handler(req, res) {
     const db = await connectToDatabase(process.env.DB_KEY);
     const collection = db.collection("projects");
     var string = `reports.${req.body.index}`;
+    var currentDate = new Date();
     var newObj = await collection.findOneAndUpdate(
       {
         _id: ObjectId(req.body.id),
